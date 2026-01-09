@@ -1,0 +1,11 @@
+histograms
+scatter_plots
+pair_plots
+__pycache__/*
+__pycache__
+*.pyc
+.DS_Store
+CLAUDE.md
+TRAINING_GUIDE.md
+logreg_model.json
+houses.csv

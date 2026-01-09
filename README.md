@@ -16,10 +16,10 @@ Each bit position = a power of 2. Add them up!
 
 ### AND (&) - Both must be 1
 ```
-  0101  (5)
-& 0011  (3)
-------
-  0001  (1)
+0 & 0 = 0
+0 & 1 = 0
+1 & 0 = 0
+1 & 1 = 1
 ```
 **Use**: Detect where both bits are 1 → finds carries in addition
 
@@ -33,10 +33,10 @@ Each bit position = a power of 2. Add them up!
 
 ### XOR (^) - Different bits = 1
 ```
-  0101  (5)
-^ 0011  (3)
-------
-  0110  (6)
+0 ^ 0 = 0
+0 ^ 1 = 1
+1 ^ 0 = 1
+1 ^ 1 = 0
 ```
 **Use**: Sum without carry! (Key for adder)
 
@@ -95,6 +95,11 @@ uint32_t a = 5;  // ALWAYS 32 bits in memory!
 ### ex00 - Adder
 Build addition using ONLY bitwise operators (no `+`)
 - Complexity: O(log n) time, O(log n) space
+
+**Complexity**:
+- O(log n) = O(32) = O(1) for fixed-size types
+- We process ~32 bits max (the number of bits needed to represent max value)
+![Binary conversion diagram](readme_images/ex00_adder.png)
 
 ### ex01 - Multiplier
 Build multiplication using ONLY bitwise operators (no `*`)

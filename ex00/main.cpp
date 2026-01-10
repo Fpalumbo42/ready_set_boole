@@ -33,8 +33,8 @@ int main() {
     cout << "1000 + 2000 = " << adder(1000, 2000) << endl;
     cout << "123456 + 654321 = " << adder(123456, 654321) << endl;
 
-    cout << "4294967295 + 0 = " << adder(4294967295U, 0) << " (expected: 4294967295)" << endl;
-    cout << "1 + 4294967295 = " << adder(1, 4294967295U) << " (expected: 0, overflow)" << endl;
+    cout << "4294967295 + 0 = " << adder(4294967295, 0) << endl;
+    cout << "1 + 4294967295 = " << adder(1, 4294967295) << endl;
 
     return 0;
 }

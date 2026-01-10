@@ -76,5 +76,41 @@ Build multiplication using ONLY bitwise operators (no `*`)
 
 ![Multiplier diagram](readme_images/ex01_multiplier.png)
 
-### ex02-09
+### ex02 - Gray Code
+Convert binary to Gray code using ONLY bitwise operators
+- Complexity: O(1) time, O(1) space
+
+**What is Gray Code?**
+A binary encoding where consecutive values differ by only 1 bit.
+
+**Why useful?** Prevents errors in encoders, sensors, and data transmission.
+
+**Formula**: `gray(n) = n ^ (n >> 1)`
+
+**How it works:**
+- Shift n right by 1 → compares each bit with its neighbor
+- XOR original with shifted → each result bit = difference with previous bit
+
+**Example: n = 5**
+```
+n     = 0101 (5)
+n>>1  = 0010
+XOR   = 0111 (7 in Gray code)
+```
+
+**Sequence 0-7:**
+```
+Decimal | Binary | Gray | Bits changed
+--------|--------|------|-------------
+   0    | 0000   | 0000 |     -
+   1    | 0001   | 0001 |     1
+   2    | 0010   | 0011 |     1
+   3    | 0011   | 0010 |     1
+   4    | 0100   | 0110 |     1
+   5    | 0101   | 0111 |     1
+   6    | 0110   | 0101 |     1
+   7    | 0111   | 0100 |     1
+```
+
+### ex03-09
 Boolean logic, truth tables, SAT solving, set theory...

@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 uint32_t adder(uint32_t a, uint32_t b) {
 
     uint32_t sum = a;
@@ -19,6 +18,7 @@ uint32_t adder(uint32_t a, uint32_t b) {
 }
 
 int main() {
+
     cout << "0 + 0 = " << adder(0, 0) << endl;
     cout << "0 + 5 = " << adder(0, 5) << endl;
     cout << "5 + 0 = " << adder(5, 0) << endl;

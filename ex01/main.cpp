@@ -32,7 +32,8 @@ uint32_t multiplier(uint32_t a, uint32_t b) {
 
 }
 
-int main(){
+int main() {
+
     cout << "2 * 3 = " << multiplier(2, 3) << endl;
     cout << "4 * 5 = " << multiplier(4, 5) << endl;
     cout << "7 * 8 = " << multiplier(7, 8) << endl;

@@ -12,46 +12,86 @@ Each bit position = a power of 2
 
 **Key concept**: Binary uses powers of 2 (like decimal uses powers of 10)
 
-## Bitwise Operators
+## Bitwise & Boolean Operators
 
-### AND (&) - Both must be 1
+### Basic Bitwise Operators
+
+#### AND (&) - Both must be 1
 ```
 0 & 0 = 0
 0 & 1 = 0
 1 & 0 = 0
 1 & 1 = 1
 ```
-**Use**: Detect where both bits are 1
+**Use**: Detect where both bits are 1, find carries in addition
 
-### OR (|) - At least one is 1
+#### OR (|) - At least one is 1
 ```
-  0101  (5)
-| 0011  (3)
-------
-  0111  (7)
+0 | 0 = 0
+0 | 1 = 1
+1 | 0 = 1
+1 | 1 = 1
 ```
+**Use**: Combine bits, set flags
 
-### XOR (^) - Different bits = 1
+#### XOR (^) - Different bits = 1
 ```
 0 ^ 0 = 0
 0 ^ 1 = 1
 1 ^ 0 = 1
 1 ^ 1 = 0
 ```
-**Use**: Sum without carry
+**Use**: Sum without carry, toggle bits, detect differences
 
-### NOT (~) - Flip all bits
+#### NOT (~) - Flip all bits
 ```
 ~ 0101 → 1010
 ```
+**Use**: Invert all bits, logical negation
 
-### Shifts (<< >>)
+#### Shifts (<< >>)
 ```
 0101 << 1 → 1010   (multiply by 2)
 1010 >> 1 → 0101   (divide by 2)
 ```
+**Use**: Fast multiplication/division by powers of 2, move carries
+
+### Boolean Logic Operators
+
+Used in propositional logic (ex03+):
+
+#### NOT (!) - Logical Negation
+```
+!0 = 1
+!1 = 0
+```
+**Meaning**: Flip the truth value - true becomes false, false becomes true
+
+#### IMPLY (>) - Material Implication
+```
+A > B = !A | B
+
+0 > 0 = 1    "false implies false" = true
+0 > 1 = 1    "false implies true" = true
+1 > 0 = 0    "true implies false" = false
+1 > 1 = 1    "true implies true" = true
+```
+**Meaning**: "If A then B" - Only false when A is true but B is false
+
+#### EQUIV (=) - Logical Equivalence
+```
+A = B = !(A ^ B)  or  (A > B) & (B > A)
+
+0 = 0 = 1    "both false" = equivalent
+0 = 1 = 0    "different values" = not equivalent
+1 = 0 = 0    "different values" = not equivalent
+1 = 1 = 1    "both true" = equivalent
+```
+**Meaning**: "A if and only if B" - True when both have the same value
 
 ## Exercises
+
+---
 
 ### ex00 - Adder
 Build addition using ONLY bitwise operators (no `+`)
@@ -65,6 +105,8 @@ Build addition using ONLY bitwise operators (no `+`)
 - O(log n) = O(32) = O(1) for fixed-size types
 ![Binary conversion diagram](readme_images/ex00_adder.png)
 
+---
+
 ### ex01 - Multiplier
 Build multiplication using ONLY bitwise operators (no `*`)
 - Complexity: O(1) time, O(1) space
@@ -76,41 +118,23 @@ Build multiplication using ONLY bitwise operators (no `*`)
 
 ![Multiplier diagram](readme_images/ex01_multiplier.png)
 
+---
+
 ### ex02 - Gray Code
 Convert binary to Gray code using ONLY bitwise operators
 - Complexity: O(1) time, O(1) space
 
 **What is Gray Code?**
-A binary encoding where consecutive values differ by only 1 bit.
-
-**Why useful?** Prevents errors in encoders, sensors, and data transmission.
+Binary encoding where consecutive values differ by only 1 bit.
 
 **Formula**: `gray(n) = n ^ (n >> 1)`
 
 **How it works:**
-- Shift n right by 1 → compares each bit with its neighbor
-- XOR original with shifted → each result bit = difference with previous bit
+XOR each bit with the next bit (shift right to compare neighbors)
 
-**Example: n = 5**
-```
-n     = 0101 (5)
-n>>1  = 0010
-XOR   = 0111 (7 in Gray code)
-```
+![Gray code diagram](readme_images/ex02_graycode.png)
 
-**Sequence 0-7:**
-```
-Decimal | Binary | Gray | Bits changed
---------|--------|------|-------------
-   0    | 0000   | 0000 |     -
-   1    | 0001   | 0001 |     1
-   2    | 0010   | 0011 |     1
-   3    | 0011   | 0010 |     1
-   4    | 0100   | 0110 |     1
-   5    | 0101   | 0111 |     1
-   6    | 0110   | 0101 |     1
-   7    | 0111   | 0100 |     1
-```
+---
 
 ### ex03-09
 Boolean logic, truth tables, SAT solving, set theory...

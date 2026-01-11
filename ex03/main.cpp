@@ -37,60 +37,110 @@ bool parse(string formula) {
     return 0;
 }
 
-int calcul(string formula) {
+bool eval_formula(string formula) {
 
     int i = 0;
     long long tmp;
     long long tmp2;
-    long long result;
+    bool res;
     stack<int> st;
 
-    while (formula[i])
-    {
+    if (!parse(formula))
+        return 1;
+
+    while (formula[i]) {
+
         if (formula[i] == '0' || formula[i] == '1')
-            st.push(formula[i] - '0');
-        else if (is_symbol(formula[i]) && st.size() >= 2)
-        {
+        st.push(formula[i] - '0');
+        
+        else if (formula[i] == '!' && st.size() >= 1) {
+
+            tmp = st.top();
+            if (formula[i] == '!') {
+                res = !tmp;
+                st.push(res);
+            } 
+        }
+
+        else if (is_symbol(formula[i]) && st.size() >= 2) {
+
             tmp = st.top();
             st.pop();
             tmp2 = st.top();
             st.pop();
-            if (formula[i] == '!')
-                result = tmp2 ! tmp;
-            else if (formula[i] == '+')
-                result = tmp2 + tmp;
-            else if (formula[i] == '*')
-                result = tmp2 * tmp;
-            else if (formula[i] == '/')
-            {
-                if (tmp != 0)
-                    result = tmp2 / tmp;
-                else
-                    throw RPN::DivisionError();
-            }
-            if (result > INT_MAX || result < INT_MIN)
-                throw RPN::TooBigTooLow();
-            st.push(result);
+
+            if (formula[i] == '&')
+                res = tmp2 & tmp;
+            else if (formula[i] == '|')
+                res = tmp2 | tmp;
+            else if (formula[i] == '^')
+                res = !tmp2 ^ tmp;
+            else if (formula[i] == '>')
+                res = !tmp2 | tmp;
+            else if (formula[i] == '=')
+                res = !(tmp2 ^ tmp);
+
+            st.push(res);
         }
-        else if (formula[i] == ' ')
-        {
-            i++;
-            continue;
+        else {
+            cout << "error" << endl;
+            return 1;
         }
-        else
-            throw RPN::StackError();
         i++;
     }
-    return result;
+    return res;
 }
 
 int main() {
 
-    string str = "10&";
-    string str2 = "1011||=";
+    cout << "=== Subject tests ===" << endl;
+    cout << "eval_formula(\"10&\") = " << eval_formula("10&") << endl;
+    cout << "eval_formula(\"10|\") = " << eval_formula("10|") << endl;
+    cout << "eval_formula(\"11>\") = " << eval_formula("11>") << endl;
+    cout << "eval_formula(\"10=\") = " << eval_formula("10=") << endl;
+    cout << "eval_formula(\"1011||=\") = " << eval_formula("1011||=") << endl;
 
-    cout << parse(str) << endl;
-    cout << parse(str2) << endl;
+    cout << "\n=== NOT operator tests ===" << endl;
+    cout << "eval_formula(\"1!\") = " << eval_formula("1!") << endl;
+    cout << "eval_formula(\"0!\") = " << eval_formula("0!") << endl;
+    cout << "eval_formula(\"1!!\") = " << eval_formula("1!!") << endl;
+
+    cout << "\n=== AND operator tests ===" << endl;
+    cout << "eval_formula(\"00&\") = " << eval_formula("00&") << endl;
+    cout << "eval_formula(\"01&\") = " << eval_formula("01&") << endl;
+    cout << "eval_formula(\"10&\") = " << eval_formula("10&") << endl;
+    cout << "eval_formula(\"11&\") = " << eval_formula("11&") << endl;
+
+    cout << "\n=== OR operator tests ===" << endl;
+    cout << "eval_formula(\"00|\") = " << eval_formula("00|") << endl;
+    cout << "eval_formula(\"01|\") = " << eval_formula("01|") << endl;
+    cout << "eval_formula(\"10|\") = " << eval_formula("10|") << endl;
+    cout << "eval_formula(\"11|\") = " << eval_formula("11|") << endl;
+
+    cout << "\n=== XOR operator tests ===" << endl;
+    cout << "eval_formula(\"00^\") = " << eval_formula("00^") << endl;
+    cout << "eval_formula(\"01^\") = " << eval_formula("01^") << endl;
+    cout << "eval_formula(\"10^\") = " << eval_formula("10^") << endl;
+    cout << "eval_formula(\"11^\") = " << eval_formula("11^") << endl;
+
+    cout << "\n=== IMPLY operator tests ===" << endl;
+    cout << "eval_formula(\"00>\") = " << eval_formula("00>") << endl;
+    cout << "eval_formula(\"01>\") = " << eval_formula("01>") << endl;
+    cout << "eval_formula(\"10>\") = " << eval_formula("10>") << endl;
+    cout << "eval_formula(\"11>\") = " << eval_formula("11>") << endl;
+
+    cout << "\n=== EQUIV operator tests ===" << endl;
+    cout << "eval_formula(\"00=\") = " << eval_formula("00=") << endl;
+    cout << "eval_formula(\"01=\") = " << eval_formula("01=") << endl;
+    cout << "eval_formula(\"10=\") = " << eval_formula("10=") << endl;
+    cout << "eval_formula(\"11=\") = " << eval_formula("11=") << endl;
+
+    cout << "\n=== Complex formulas ===" << endl;
+    cout << "eval_formula(\"10&0|1^\") = " << eval_formula("10&0|1^") << endl;
+    cout << "eval_formula(\"101|&\") = " << eval_formula("101|&") << endl;
+    cout << "eval_formula(\"10!&\") = " << eval_formula("10!&") << endl;
+    cout << "eval_formula(\"10&!\") = " << eval_formula("10&!") << endl;
+    cout << "eval_formula(\"1010^^=\") = " << eval_formula("1010^^=") << endl;
 
     return 0;
 }

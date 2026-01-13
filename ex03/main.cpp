@@ -11,29 +11,23 @@ bool is_symbol(char c) {
 }
 
 bool parse(string formula) {
-
-    int nb_symbol = 0;
     int nb_number = 0;
+    int nb_binary = 0;
 
     for (size_t i = 0; i < formula.length(); ++i) {
-
         if (formula[i] == '0' || formula[i] == '1')
             nb_number++;
-
+        else if (formula[i] == '!')
+            continue;
         else if (is_symbol(formula[i]))
-            nb_symbol++;
-
-        else {
-            cout << "Error: Unknown character" << endl;
+            nb_binary++;
+        else
             return 1;
-        }
     }
 
-    if (nb_symbol != nb_number - 1 || nb_number <= 1) {
-        cout << "Error: Syntax is not correct" << endl;
+    if (nb_number != nb_binary + 1)
         return 1;
-    }
-
+    
     return 0;
 }
 
@@ -45,17 +39,20 @@ bool eval_formula(string formula) {
     bool res;
     stack<int> st;
 
-    if (!parse(formula))
+    if (parse(formula)) {
+        cout << "Error: Syntax is not correct" << endl;
         return 1;
+    }
 
     while (formula[i]) {
 
         if (formula[i] == '0' || formula[i] == '1')
-        st.push(formula[i] - '0');
+            st.push(formula[i] - '0');
         
         else if (formula[i] == '!' && st.size() >= 1) {
 
             tmp = st.top();
+            st.pop();
             if (formula[i] == '!') {
                 res = !tmp;
                 st.push(res);
@@ -74,7 +71,7 @@ bool eval_formula(string formula) {
             else if (formula[i] == '|')
                 res = tmp2 | tmp;
             else if (formula[i] == '^')
-                res = !tmp2 ^ tmp;
+                res = tmp2 ^ tmp;
             else if (formula[i] == '>')
                 res = !tmp2 | tmp;
             else if (formula[i] == '=')

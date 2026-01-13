@@ -136,5 +136,33 @@ XOR each bit with the next bit (shift right to compare neighbors)
 
 ---
 
-### ex03-09
-Boolean logic, truth tables, SAT solving, set theory...
+### ex03 - Boolean evaluation
+Evaluate propositional formulas in Reverse Polish Notation (RPN)
+- Complexity: O(n) time
+
+**What is RPN?**
+Postfix notation where operators come after operands: `AB&` means `A AND B`
+
+**Algorithm**: Stack-based evaluation
+1. Read formula left to right
+2. Numbers (0/1) → push to stack
+3. Unary operator (!) → pop 1, apply operation, push result
+4. Binary operator (&|^>=) → pop 2, apply operation, push result
+5. Final stack value = result
+
+**Example**: `11>0&` evaluates to `0`
+
+![Boolean evaluation diagram](readme_images/ex03_boolean_evaluation.png)
+
+**Key operators**:
+- `!` (NOT): Negation - flips the value
+- `&` (AND): Both must be true
+- `|` (OR): At least one must be true
+- `^` (XOR): Exactly one must be true (different values)
+- `>` (IMPLY): `!A | B` - False only when A=true and B=false
+- `=` (EQUIV): `!(A ^ B)` - True when both have same value
+
+---
+
+### ex04-09
+Truth tables, NNF, CNF, SAT solving, set theory...

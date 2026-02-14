@@ -90,56 +90,54 @@ bool eval_formula(string formula) {
 
 int main() {
 
-    cout << eval_formula("11>0&") << endl;
+    cout << "=== Subject tests ===" << endl;
+    cout << "eval_formula(\"10&\") = " << eval_formula("10&") << endl;
+    cout << "eval_formula(\"10|\") = " << eval_formula("10|") << endl;
+    cout << "eval_formula(\"11>\") = " << eval_formula("11>") << endl;
+    cout << "eval_formula(\"10=\") = " << eval_formula("10=") << endl;
+    cout << "eval_formula(\"1011||=\") = " << eval_formula("1011||=") << endl;
 
-    // cout << "=== Subject tests ===" << endl;
-    // cout << "eval_formula(\"10&\") = " << eval_formula("10&") << endl;
-    // cout << "eval_formula(\"10|\") = " << eval_formula("10|") << endl;
-    // cout << "eval_formula(\"11>\") = " << eval_formula("11>") << endl;
-    // cout << "eval_formula(\"10=\") = " << eval_formula("10=") << endl;
-    // cout << "eval_formula(\"1011||=\") = " << eval_formula("1011||=") << endl;
+    cout << "\n=== NOT operator tests ===" << endl;
+    cout << "eval_formula(\"1!\") = " << eval_formula("1!") << endl;
+    cout << "eval_formula(\"0!\") = " << eval_formula("0!") << endl;
+    cout << "eval_formula(\"1!!\") = " << eval_formula("1!!") << endl;
 
-    // cout << "\n=== NOT operator tests ===" << endl;
-    // cout << "eval_formula(\"1!\") = " << eval_formula("1!") << endl;
-    // cout << "eval_formula(\"0!\") = " << eval_formula("0!") << endl;
-    // cout << "eval_formula(\"1!!\") = " << eval_formula("1!!") << endl;
+    cout << "\n=== AND operator tests ===" << endl;
+    cout << "eval_formula(\"00&\") = " << eval_formula("00&") << endl;
+    cout << "eval_formula(\"01&\") = " << eval_formula("01&") << endl;
+    cout << "eval_formula(\"10&\") = " << eval_formula("10&") << endl;
+    cout << "eval_formula(\"11&\") = " << eval_formula("11&") << endl;
 
-    // cout << "\n=== AND operator tests ===" << endl;
-    // cout << "eval_formula(\"00&\") = " << eval_formula("00&") << endl;
-    // cout << "eval_formula(\"01&\") = " << eval_formula("01&") << endl;
-    // cout << "eval_formula(\"10&\") = " << eval_formula("10&") << endl;
-    // cout << "eval_formula(\"11&\") = " << eval_formula("11&") << endl;
+    cout << "\n=== OR operator tests ===" << endl;
+    cout << "eval_formula(\"00|\") = " << eval_formula("00|") << endl;
+    cout << "eval_formula(\"01|\") = " << eval_formula("01|") << endl;
+    cout << "eval_formula(\"10|\") = " << eval_formula("10|") << endl;
+    cout << "eval_formula(\"11|\") = " << eval_formula("11|") << endl;
 
-    // cout << "\n=== OR operator tests ===" << endl;
-    // cout << "eval_formula(\"00|\") = " << eval_formula("00|") << endl;
-    // cout << "eval_formula(\"01|\") = " << eval_formula("01|") << endl;
-    // cout << "eval_formula(\"10|\") = " << eval_formula("10|") << endl;
-    // cout << "eval_formula(\"11|\") = " << eval_formula("11|") << endl;
+    cout << "\n=== XOR operator tests ===" << endl;
+    cout << "eval_formula(\"00^\") = " << eval_formula("00^") << endl;
+    cout << "eval_formula(\"01^\") = " << eval_formula("01^") << endl;
+    cout << "eval_formula(\"10^\") = " << eval_formula("10^") << endl;
+    cout << "eval_formula(\"11^\") = " << eval_formula("11^") << endl;
 
-    // cout << "\n=== XOR operator tests ===" << endl;
-    // cout << "eval_formula(\"00^\") = " << eval_formula("00^") << endl;
-    // cout << "eval_formula(\"01^\") = " << eval_formula("01^") << endl;
-    // cout << "eval_formula(\"10^\") = " << eval_formula("10^") << endl;
-    // cout << "eval_formula(\"11^\") = " << eval_formula("11^") << endl;
+    cout << "\n=== IMPLY operator tests ===" << endl;
+    cout << "eval_formula(\"00>\") = " << eval_formula("00>") << endl;
+    cout << "eval_formula(\"01>\") = " << eval_formula("01>") << endl;
+    cout << "eval_formula(\"10>\") = " << eval_formula("10>") << endl;
+    cout << "eval_formula(\"11>\") = " << eval_formula("11>") << endl;
 
-    // cout << "\n=== IMPLY operator tests ===" << endl;
-    // cout << "eval_formula(\"00>\") = " << eval_formula("00>") << endl;
-    // cout << "eval_formula(\"01>\") = " << eval_formula("01>") << endl;
-    // cout << "eval_formula(\"10>\") = " << eval_formula("10>") << endl;
-    // cout << "eval_formula(\"11>\") = " << eval_formula("11>") << endl;
+    cout << "\n=== EQUIV operator tests ===" << endl;
+    cout << "eval_formula(\"00=\") = " << eval_formula("00=") << endl;
+    cout << "eval_formula(\"01=\") = " << eval_formula("01=") << endl;
+    cout << "eval_formula(\"10=\") = " << eval_formula("10=") << endl;
+    cout << "eval_formula(\"11=\") = " << eval_formula("11=") << endl;
 
-    // cout << "\n=== EQUIV operator tests ===" << endl;
-    // cout << "eval_formula(\"00=\") = " << eval_formula("00=") << endl;
-    // cout << "eval_formula(\"01=\") = " << eval_formula("01=") << endl;
-    // cout << "eval_formula(\"10=\") = " << eval_formula("10=") << endl;
-    // cout << "eval_formula(\"11=\") = " << eval_formula("11=") << endl;
-
-    // cout << "\n=== Complex formulas ===" << endl;
-    // cout << "eval_formula(\"10&0|1^\") = " << eval_formula("10&0|1^") << endl;
-    // cout << "eval_formula(\"101|&\") = " << eval_formula("101|&") << endl;
-    // cout << "eval_formula(\"10!&\") = " << eval_formula("10!&") << endl;
-    // cout << "eval_formula(\"10&!\") = " << eval_formula("10&!") << endl;
-    // cout << "eval_formula(\"1010^^=\") = " << eval_formula("1010^^=") << endl;
+    cout << "\n=== Complex formulas ===" << endl;
+    cout << "eval_formula(\"10&0|1^\") = " << eval_formula("10&0|1^") << endl;
+    cout << "eval_formula(\"101|&\") = " << eval_formula("101|&") << endl;
+    cout << "eval_formula(\"10!&\") = " << eval_formula("10!&") << endl;
+    cout << "eval_formula(\"10&!\") = " << eval_formula("10&!") << endl;
+    cout << "eval_formula(\"1010^^=\") = " << eval_formula("1010^^=") << endl;
 
     return 0;
 }

@@ -1,168 +1,269 @@
 # Ready, Set, Boole!
 
-Boolean Algebra and Bitwise Operations - Personal Learning Notes
+> Personal learning notes on binary numbers, bitwise operations, and propositional logic.
+
+## Contents
+
+- [Binary Number System](#binary-number-system)
+- [Bitwise & Boolean Operators](#bitwise--boolean-operators)
+- [ex00 — Adder](#ex00--adder)
+- [ex01 — Multiplier](#ex01--multiplier)
+- [ex02 — Gray Code](#ex02--gray-code)
+- [ex03 — Boolean evaluation](#ex03--boolean-evaluation)
+- [ex04 — Truth table](#ex04--truth-table)
+- [Build & Run](#build--run)
 
 ## Binary Number System
 
-### Binary ↔ Decimal Conversion
+### Core concepts
 
-![Binary conversion diagram](readme_images/bits.png)
+#### Binary ↔ Decimal Conversion
 
-Each bit position = a power of 2
+![Binary number system](assets/number_in_binary.svg)
 
-**Key concept**: Binary uses powers of 2 (like decimal uses powers of 10)
+Each bit position represents a power of 2.
+
+**Key concept**: Binary uses powers of 2 (like decimal uses powers of 10).
 
 ## Bitwise & Boolean Operators
 
 ### Basic Bitwise Operators
 
-#### AND (&) - Both must be 1
+#### AND (`&`) — Both must be 1
+
 ```
 0 & 0 = 0
 0 & 1 = 0
 1 & 0 = 0
 1 & 1 = 1
 ```
-**Use**: Detect where both bits are 1, find carries in addition
 
-#### OR (|) - At least one is 1
+**Use**: Detect where both bits are 1, find carries in addition.
+
+#### OR (`|`) — At least one is 1
+
 ```
 0 | 0 = 0
 0 | 1 = 1
 1 | 0 = 1
 1 | 1 = 1
 ```
-**Use**: Combine bits, set flags
 
-#### XOR (^) - Different bits = 1
+**Use**: Combine bits, set flags.
+
+#### XOR (`^`) — Different bits = 1
+
 ```
 0 ^ 0 = 0
 0 ^ 1 = 1
 1 ^ 0 = 1
 1 ^ 1 = 0
 ```
-**Use**: Sum without carry, toggle bits, detect differences
 
-#### NOT (~) - Flip all bits
-```
-~ 0101 → 1010
-```
-**Use**: Invert all bits, logical negation
+**Use**: Sum without carry, toggle bits, detect differences.
 
-#### Shifts (<< >>)
+#### NOT (`~`) — Flip all bits
+
 ```
-0101 << 1 → 1010   (multiply by 2)
-1010 >> 1 → 0101   (divide by 2)
+~0101 → 1010
 ```
-**Use**: Fast multiplication/division by powers of 2, move carries
+
+**Use**: Invert all bits, logical negation.
+
+#### Shifts (`<<`, `>>`)
+
+```
+0101 << 1 → 1010  (multiply by 2)
+1010 >> 1 → 0101  (divide by 2)
+```
+
+**Use**: Fast multiplication/division by powers of 2, move carries.
 
 ### Boolean Logic Operators
 
-Used in propositional logic (ex03+):
+Used in propositional logic (ex03+).
 
-#### NOT (!) - Logical Negation
+#### NOT (`!`) — Logical negation
+
 ```
 !0 = 1
 !1 = 0
 ```
-**Meaning**: Flip the truth value - true becomes false, false becomes true
 
-#### IMPLY (>) - Material Implication
+**Meaning**: Flip the truth value — true becomes false, false becomes true.
+
+#### IMPLY (`>`) — Material implication
+
 ```
 A > B = !A | B
 
-0 > 0 = 1    "false implies false" = true
-0 > 1 = 1    "false implies true" = true
-1 > 0 = 0    "true implies false" = false
-1 > 1 = 1    "true implies true" = true
+0 > 0 = 1  (false implies false)
+0 > 1 = 1  (false implies true)
+1 > 0 = 0  (true implies false)
+1 > 1 = 1  (true implies true)
 ```
-**Meaning**: "If A then B" - Only false when A is true but B is false
 
-#### EQUIV (=) - Logical Equivalence
+**Meaning**: "If A then B" — false only when A is true and B is false.
+
+#### EQUIV (`=`) — Logical equivalence
+
 ```
 A = B = !(A ^ B)  or  (A > B) & (B > A)
 
-0 = 0 = 1    "both false" = equivalent
-0 = 1 = 0    "different values" = not equivalent
-1 = 0 = 0    "different values" = not equivalent
-1 = 1 = 1    "both true" = equivalent
+0 = 0 = 1  (both false)
+0 = 1 = 0  (different values)
+1 = 0 = 0  (different values)
+1 = 1 = 1  (both true)
 ```
-**Meaning**: "A if and only if B" - True when both have the same value
 
-## Exercises
+**Meaning**: "A if and only if B" — true when both values are the same.
 
----
+## ex00 — Adder
 
-### ex00 - Adder
-Build addition using ONLY bitwise operators (no `+`)
-- Complexity: O(log n) time, O(log n) space
+Build addition using **only bitwise operators** (no `+`).
 
-**Complexity explanation**:
-- O(log n) measures how execution time grows with input size
-- For our adder: n = max value representable, iterations = number of bits
-- uint32_t needs 32 bits → log₂(2³²) = 32 iterations max
-- No matter the values (5+3 or 4 billion+1), max 32 iterations
-- O(log n) = O(32) = O(1) for fixed-size types
-![Binary conversion diagram](readme_images/ex00_adder.png)
+- **Complexity**: O(log n) time, O(log n) space. — One iteration per bit (32 max for `uint32_t`).
 
----
+![Adder](assets/adder.svg)
 
-### ex01 - Multiplier
-Build multiplication using ONLY bitwise operators (no `*`)
-- Complexity: O(1) time, O(1) space
+## ex01 — Multiplier
 
-**Algorithm**: Shift and add
-1. Check if last bit of `b` is 1 → if yes, add `a` to result
-2. Shift `a` left (×2) and `b` right (÷2)
-3. Repeat until `b` becomes 0
+Build multiplication using **only bitwise operators** (no `*`).
 
-![Multiplier diagram](readme_images/ex01_multiplier.png)
+- **Complexity**: O(1) time, O(1) space. — Fixed 32 iterations (one per bit of `b`).
 
----
+**Algorithm**: Shift and add.
 
-### ex02 - Gray Code
-Convert binary to Gray code using ONLY bitwise operators
-- Complexity: O(1) time, O(1) space
+1. If the last bit of `b` is 1, add `a` to the result.
+2. Shift `a` left (×2) and `b` right (÷2).
+3. Repeat until `b` becomes 0.
+
+![Multiplier](assets/multiplier.svg)
+
+## ex02 — Gray Code
+
+Convert binary to Gray code using **only bitwise operators**.
+
+- **Complexity**: O(1) time, O(1) space. — Single XOR operation.
 
 **What is Gray Code?**
-Binary encoding where consecutive values differ by only 1 bit.
 
-**Formula**: `gray(n) = n ^ (n >> 1)`
+A binary encoding where consecutive values differ by only one bit.
 
-**How it works:**
-XOR each bit with the next bit (shift right to compare neighbors)
+**Formula**:
 
-![Gray code diagram](readme_images/ex02_graycode.png)
+```
+gray(n) = n ^ (n >> 1)
+```
 
----
+**How it works**:
 
-### ex03 - Boolean evaluation
-Evaluate propositional formulas in Reverse Polish Notation (RPN)
-- Complexity: O(n) time
+Each bit is XORed with its right neighbor.
+
+![Gray code](assets/gray_code.svg)
+
+## ex03 — Boolean evaluation
+
+Evaluate propositional formulas written in **Reverse Polish Notation (RPN)**.
+
+- **Complexity**: O(n) time. — One pass through the formula of length `n`.
 
 **What is RPN?**
-Postfix notation where operators come after operands: `AB&` means `A AND B`
 
-**Algorithm**: Stack-based evaluation
-1. Read formula left to right
-2. Numbers (0/1) → push to stack
-3. Unary operator (!) → pop 1, apply operation, push result
-4. Binary operator (&|^>=) → pop 2, apply operation, push result
-5. Final stack value = result
+Postfix notation where operators come after operands.
 
-**Example**: `11>0&` evaluates to `0`
+Example:
 
-![Boolean evaluation diagram](readme_images/ex03_boolean_evaluation.png)
+```
+AB&  → A AND B
+```
+
+**Algorithm**: Stack-based evaluation.
+
+1. Read the formula from left to right.
+2. Numbers (`0` / `1`) → push onto the stack.
+3. Unary operator (`!`) → pop 1 value, apply operator, push result.
+4. Binary operator (`& | ^ > =`) → pop 2 values, apply operator, push result.
+5. The final stack value is the result.
+
+**Example**:
+
+```
+11>0& → 0
+```
 
 **Key operators**:
-- `!` (NOT): Negation - flips the value
-- `&` (AND): Both must be true
-- `|` (OR): At least one must be true
-- `^` (XOR): Exactly one must be true (different values)
-- `>` (IMPLY): `!A | B` - False only when A=true and B=false
-- `=` (EQUIV): `!(A ^ B)` - True when both have same value
+
+- `!` — NOT: negation.
+- `&` — AND: both must be true.
+- `|` — OR: at least one must be true.
+- `^` — XOR: values must differ.
+- `>` — IMPLY: `!A | B`.
+- `=` — EQUIV: `!(A ^ B)`.
+
+![Boolean evaluation](assets/boolean_evaluation.svg)
+
+## ex04 — Truth table
+
+Print a truth table for a propositional formula written in **RPN**.
+
+- **Complexity**: O(2^n) time. — One evaluation per combination of `n` variables.
+
+**What is a truth table?**
+
+A table listing the result of a formula for every possible combination of variable values.
+
+With `n` variables, there are `2^n` combinations to test.
+
+**Algorithm**:
+
+1. Extract unique variables from the formula (stored in a sorted `map<char, int>`).
+2. Iterate `i` from `0` to `2^n - 1` — each value of `i` encodes one combination.
+3. For each variable at index `k`, extract its value from `i` using: `(i >> (n-1-k)) & 1`
+4. Evaluate the formula with those variable values.
+5. Print the row.
+
+**Bit extraction trick**:
+
+```
+i = 2  →  binary: 1  0
+                  ↑  ↑
+                k=0  k=1
+                A=1  B=0
+
+(i >> (n-1-k)) & 1
+```
+
+Reading bits left to right maps to variables A, B, C... in alphabetical order.
+
+**Example**:
+
+```
+print_truth_table("AB&")
+
+| A | B | = |
+|---|---|---|
+| 0 | 0 | 0 |
+| 0 | 1 | 0 |
+| 1 | 0 | 0 |
+| 1 | 1 | 1 |
+```
+
+![Truth table](assets/truth_table.svg)
+
+## ex05–09
+
+Truth tables, NNF, CNF, SAT solving, set theory, and more.
 
 ---
 
-### ex04-09
-Truth tables, NNF, CNF, SAT solving, set theory...
+## Build & Run
+
+```bash
+make ex00        # build specific exercise
+make             # build all
+make re          # clean + rebuild
+make run-ex04    # build and run
+```
+
+Compiler: `g++ -Wall -Wextra -Werror -std=c++98`

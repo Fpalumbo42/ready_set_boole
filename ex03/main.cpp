@@ -3,14 +3,14 @@
 
 using namespace std;
 
-bool is_symbol(char c) {
+bool is_symbol(const char c) {
     if (c == '!' || c == '&' || c == '|' || c == '^' || c == '>' || c == '=')
         return true;
     else
         return false;
 }
 
-bool parse(string formula) {
+bool parse(const string& formula) {
     int nb_number = 0;
     int nb_binary = 0;
 
@@ -31,7 +31,7 @@ bool parse(string formula) {
     return 0;
 }
 
-bool eval_formula(string formula) {
+bool eval_formula(const string& formula) {
 
     int i = 0;
     long long tmp;

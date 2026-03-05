@@ -26,13 +26,13 @@ bool parse(const string& formula) {
         else if (is_symbol(formula[i]))
             nb_binary++;
         else
-            return 1;
+            return false;
     }
 
     if (nb_var != nb_binary + 1)
-        return 1;
+        return false;
 
-    return 0;
+    return true;
 }
 
 void extract_variables(const string& formula, map<char, int>& variables) {
@@ -81,7 +81,7 @@ bool eval_formula(const string& formula, const map<char, int>& variable) {
         }
         else {
             cout << "error" << endl;
-            return 1;
+            return false;
         }
         i++;
     }

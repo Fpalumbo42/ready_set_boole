@@ -4,7 +4,7 @@ void print_truth_table(const string& formula) {
     map<char, int> variables;
     map<char, int>::iterator it;
 
-    if (parse(formula)) {
+    if (!parse(formula)) {
         cout << "Error: Syntax is not correct" << endl;
         return;
     }

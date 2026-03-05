@@ -22,13 +22,13 @@ bool parse(const string& formula) {
         else if (is_symbol(formula[i]))
             nb_binary++;
         else
-            return 1;
+            return false;
     }
 
     if (nb_number != nb_binary + 1)
-        return 1;
+        return false;
     
-    return 0;
+    return true;
 }
 
 bool eval_formula(const string& formula) {
@@ -36,12 +36,12 @@ bool eval_formula(const string& formula) {
     int i = 0;
     long long tmp;
     long long tmp2;
-    bool res;
+    bool res = false;
     stack<int> st;
 
-    if (parse(formula)) {
+    if (!parse(formula)) {
         cout << "Error: Syntax is not correct" << endl;
-        return 1;
+        return false;
     }
 
     while (formula[i]) {
@@ -81,11 +81,11 @@ bool eval_formula(const string& formula) {
         }
         else {
             cout << "error" << endl;
-            return 1;
+            return false;
         }
         i++;
     }
-    return res;
+    return st.top();
 }
 
 int main() {
@@ -138,6 +138,12 @@ int main() {
     cout << "eval_formula(\"10!&\") = " << eval_formula("10!&") << endl;
     cout << "eval_formula(\"10&!\") = " << eval_formula("10&!") << endl;
     cout << "eval_formula(\"1010^^=\") = " << eval_formula("1010^^=") << endl;
+
+    cout << "\n=== Error cases ===" << endl;
+    cout << "eval_formula(\"\") = " << eval_formula("") << endl;
+    cout << "eval_formula(\"10\") = " << eval_formula("10") << endl;
+    cout << "eval_formula(\"1&\") = " << eval_formula("1&") << endl;
+    cout << "eval_formula(\"0|\") = " << eval_formula("0|") << endl;
 
     return 0;
 }

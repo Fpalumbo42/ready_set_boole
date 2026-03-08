@@ -250,20 +250,3 @@ print_truth_table("AB&")
 ```
 
 ![Truth table](assets/truth_table.svg)
-
-## ex05–09
-
-Truth tables, NNF, CNF, SAT solving, set theory, and more.
-
----
-
-## Build & Run
-
-```bash
-make ex00        # build specific exercise
-make             # build all
-make re          # clean + rebuild
-make run-ex04    # build and run
-```
-
-Compiler: `g++ -Wall -Wextra -Werror -std=c++98`
